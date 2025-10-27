@@ -19,14 +19,9 @@ contents = [prompt_text, image]
 print(f"모델 호출 중: 텍스트='{prompt_text}', 이미지='{image_path}'")
 # structured output
 class Bottle(BaseModel):
-    color: str
+    bottle_color: str
     image_label: str
     text_label: str
-class Recipe(BaseModel):
-    recipe_name: str
-    description: str
-    ingredients: list[str]
-    steps: list[str]
 try:
     # 스트리밍 응답
     response = client.models.generate_content_stream(
