@@ -8,7 +8,11 @@ processor = AutoProcessor.from_pretrained("google/siglip2-base-patch16-512")
 
 image_path = "datasets/juice_bottle/juice_bottle/train/good/000.png"
 image = Image.open(image_path).convert("RGB")
-candidate_labels = ["yellow orange juice bottle", "red apple juice bottle", "green vegetable juice bottle"]
+candidate_labels = [
+    "yellow orange juice bottle", 
+    "red apple juice bottle", 
+    "green vegetable juice bottle"
+]
 
 # follows the pipeline prompt template to get same results
 texts = [f'This is a photo of {label}.' for label in candidate_labels]
@@ -26,6 +30,6 @@ with torch.no_grad():
     outputs = model(**inputs)
 
 logits_per_image = outputs.logits_per_image
-probs = torch.sigmoid(logits_per_image)
+probs = torch.softmax(logits_per_image, dim=-1)
 for i, label in enumerate(candidate_labels):
     print(f"{probs[0][i]:.1%} that image 0 is '{label}'")
