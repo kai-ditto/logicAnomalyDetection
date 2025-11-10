@@ -16,3 +16,10 @@ cp .env.example .env
 # .env 파일 내용 예시:
 GEMINI_API_KEY=your_gemini_api_key_here
 ```
+
+```
+pip install -r requirements.txt
+```
+```
+python pipeline.py 
+```

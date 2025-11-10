@@ -51,13 +51,13 @@ class AnomalyDetection:
             siglip2_path
         )
 
-        dinov3_model = AutoModel.from_pretrained(
-            dinov3_path, 
-            device_map="auto"
-        )
-        dinov3_processor = AutoProcessor.from_pretrained(
-            dinov3_path
-        )
+        # dinov3_model = AutoModel.from_pretrained(
+        #     dinov3_path, 
+        #     device_map="auto"
+        # )
+        # dinov3_processor = AutoProcessor.from_pretrained(
+        #     dinov3_path
+        # )
 
         models['gemini'] = {
             'client': gemini_client,
@@ -67,10 +67,10 @@ class AnomalyDetection:
             'model': siglip2_model.to(device),
             'processor': siglip2_processor
         }
-        models['dinov3'] = {
-            'model': dinov3_model.to(device),
-            'processor': dinov3_processor
-        }
+        # models['dinov3'] = {
+        #     'model': dinov3_model.to(device),
+        #     'processor': dinov3_processor
+        # }
         if self.verbose:
             print(f"All models({list(models.keys())}) loaded.")
             print(f"Device: {device}")
@@ -169,6 +169,8 @@ class AnomalyDetection:
         if self.verbose:
             print("Formatted text:", formatted_text)
         text = format_schema.decode(formatted_text)
+        if self.verbose:
+            print("Decoded text:", text)
         siglip2_inputs = self.models['siglip2']['processor'](
             text=[text],
             images=image, 
